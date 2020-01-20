@@ -26,10 +26,10 @@ cd $SVN_REPOROOT
 for name in $(ls) 
 #if [ -d "$name" ]; then
 
-#do  
-#if [ ! -d "$RAR_STORE/$name" ];then  
-#mkdir $RAR_STORE/$name  
-#fi
+do  
+if [ ! -d "$RAR_STORE/$name" ];then  
+mkdir $RAR_STORE/$name  
+fi
 
 cd $RAR_STORE/$name  
 if [ ! -d "$Log_PATH/$name" ];then  
@@ -45,7 +45,7 @@ NUM_LOWER=`head -1 $Log_PATH/$name/last_revision.txt`
 let LOWER="$NUM_LOWER+1"
 
 if [ $UPPER -ge $LOWER ]; then
-$SVN_ADMIN dump $SVN_REPOROOT/$name -r $LOWER:$UPPER --incremental > $RAR_STORE/incremental.$name.bak.dump
+$SVN_ADMIN dump $SVN_REPOROOT/$name -r $LOWER:$UPPER --incremental > $RAR_STORE/$name/$name.$LOWER-$UPPER.dump
 rm -f $Log_PATH/A.TMP  
 echo $UPPER > $Log_PATH/$name/last_revision.txt  
 echo ******This time we bakcup from $LOWER to $UPPER****** >> $Log_PATH/$name/$name.log  
